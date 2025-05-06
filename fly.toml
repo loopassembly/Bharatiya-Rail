@@ -1,0 +1,29 @@
+# fly.toml app configuration file generated for railway-bac on 2024-12-20T17:18:04+05:30
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'railway-bac'
+primary_region = 'syd'
+
+[build]
+
+[env]
+  DB_PATH = '/data/railway.db'
+
+[[mounts]]
+  source = 'railway_db'
+  destination = '/data'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
